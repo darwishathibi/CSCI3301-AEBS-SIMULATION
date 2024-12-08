@@ -1,6 +1,6 @@
 # CSCI3301-AEBS-SIMULATION
 
-## Sensor-Based Collision Avoidance System
+![image](https://github.com/user-attachments/assets/c2e71c9a-0ad4-4f9e-804c-14ab47ef4a7c)
 
 ### 1. Sensor Data Reading and Preprocessing Module (Darwis)
 **Tasks**:
