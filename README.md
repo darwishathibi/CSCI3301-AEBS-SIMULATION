@@ -7,7 +7,6 @@
 | 2  | Mohamad Hafiz |
 | 3  | Darwis Shathibi [(GitHub)](https://github.com/darwishathibi)  |
 | 4  | Wan Muhammad Hariz  |
-| 5  | Linus Torvalds  |
 
 ## Instructor
 Ts. Dr. Hafizah Binti Mansor
