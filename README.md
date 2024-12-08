@@ -25,7 +25,6 @@ Ts. Dr. Hafizah Binti Mansor
 - `read_camera()`
 - `read_speedometer()`
 - `read_lidar()`
-- `sensor_preprocessing_data()`
 
 ---
 
