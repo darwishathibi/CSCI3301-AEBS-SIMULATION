@@ -1,5 +1,19 @@
 # CSCI3301-AEBS-SIMULATION
 
+## Group Members
+| No | Name              |
+|----|-------------------|
+| 1  | Syed Muhammad Afiq Idid  |
+| 2  | Mohamad Hafiz |
+| 3  | Darwis Shathibi [(GitHub)](https://github.com/darwishathibi)  |
+| 4  | Wan Muhammad Hariz  |
+| 5  | Linus Torvalds  |
+
+## Instructor
+Ts. Dr. Hafizah Binti Mansor
+
+##Overview and Module
+
 ![image](https://github.com/user-attachments/assets/c2e71c9a-0ad4-4f9e-804c-14ab47ef4a7c)
 
 ### 1. Sensor Data Reading and Preprocessing Module (Darwis)
