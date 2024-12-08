@@ -1,4 +1,5 @@
 # CSCI3301-AEBS-SIMULATION
+A simple collision avoidance system written in Python, designed for the Computer Architecture & Assembly Language (CSCI 3301) of Kuliyyah of Information, Communication & Technology in International Islamic University Malaysia (IIUM). The system includes modules for sensor data reading and preprocessing, Time-to-Collision (TTC) calculation, warning systems, and braking mechanisms, with tasks divided among team members for efficient development.
 
 ## Group Members
 | No | Name              |
