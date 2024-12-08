@@ -19,7 +19,6 @@ Ts. Dr. Hafizah Binti Mansor
 ### 1. Sensor Data Reading and Preprocessing Module (Darwis)
 **Tasks**:
 - Develop code to interface with the camera, speedometer, and LiDAR sensors.
-- Implement preprocessing steps for data received from each sensor (e.g., filtering noise or normalizing data).
 
 **Components**:
 - `read_camera()`
