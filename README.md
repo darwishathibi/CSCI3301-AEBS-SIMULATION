@@ -34,7 +34,6 @@ Ts. Dr. Hafizah Binti Mansor
 
 **Components**:
 - `calculate_TTC()`
-- Handle logic for conditions like `TTC < FCW` and `TTC < PB_T`.
 
 ---
 
