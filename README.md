@@ -7,7 +7,7 @@ A simple collision avoidance system written in Python, designed for the Computer
 | 1  | Syed Muhammad Afiq Idid  |
 | 2  | Mohamad Hafiz |
 | 3  | Darwis Shathibi [(GitHub)](https://github.com/darwishathibi)  |
-| 4  | Wan Muhammad Hariz  |
+| 4  | Wan Mohamad Hariz  |
 
 ## Instructor
 Ts. Dr. Hafizah Binti Mansor
