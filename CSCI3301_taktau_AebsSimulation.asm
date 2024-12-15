@@ -1,132 +1,149 @@
-# CSCI 3301 Computer Architecture and Assembly Language (CAAL)	Section: 1
-# Title: : Automatic Emergency Braking System (AEBS) Simulation
+# CSCI 3301 Computer Architecture and Assembly Language (CAAL) Section: 1
+# Title: Automatic Emergency Braking System (AEBS) Simulation
 # Group Taktau, Members:
 # 	1. Syed Muhammad Afiq Idid bin Syed Azli Idid (2218417)
-#	2. Mohamad Hafiz bin Mohd Jais (2218827)
-#	3. Danish Darwis bin Shathibi (2210665)
-#	4. Wan Mohamad Hariz bin Wan Marzuki (2213623)
+# 	2. Mohamad Hafiz bin Mohd Jais (2218827)
+# 	3. Danish Darwis bin Shathibi (2210665)
+# 	4. Wan Mohamad Hariz bin Wan Marzuki (2213623)
 
 # Initialize all variables
 .data 
-    count: 	.word 0        		 	
-    str_prompt_lidar:		.asciiz "Please enter lidar value: "
-    str_prompt_speedometer:	.asciiz "Please enter speedometer value: "
-    str_prompt_camera:		.asciiz "No need to enter (just display from fixed constant) value: "
-    str_lidar_result:		.asciiz "Lidar value: "
-    str_speedometer_result:	.asciiz "Speedometer value: "
-    str_camera_result:		.asciiz "Camera resolution: "
-    str_x:			.asciiz "x"
-    break_line: 		.asciiz "\n"
-    
-    #Fixed Constant
-    min_lidar:		.word 4			#set the minimum 4 meter distance between 2 cars before AEBS turn on
-    camera_width:	.word 1280		#width of the camera
-    camera_height:	.word 720		#height of the camera
-    
-#################################################
-# Module 1: Darwis                              #
-# Sensor Data Reading and Preprocessing Module  #
-#################################################
+    count:                  .word 0         
+    str_prompt_lidar:       .asciiz "Please enter lidar value (meters): "
+    str_invalid_lidar:      .asciiz "Invalid lidar value. Must be >= 4 meters.\n"
+    str_prompt_speedometer: .asciiz "Please enter speedometer value (km/h): "
+    str_invalid_speed:      .asciiz "Invalid speed value. Must be >= 0 km/h.\n"
+    str_camera_result:      .asciiz " Camera resolution: 1280x720\n"
+    str_lidar_result:       .asciiz "Lidar value: "
+    str_speedometer_result: .asciiz " Speedometer value: "
+    str_ttc_result:         .asciiz "Time-to-Collision in ms(TTC): "
+    break_line:             .asciiz "\n"
+
+    # Sensor storage variables
+    lidar_values:           .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    speedometer_values:     .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    ttc_values:             .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
+    # Fixed Constants
+    min_lidar:              .word 4          # Minimum distance (meters) before AEBS turns on
+
 .text 
 main: 
-	li $t0, 0           	#initialize counter to 0 (t0 = 0)
- 
-loop: 
-    	bge $t0, 10, end_loop 	#if t0 >= 10, exit the loop           
-    
-    	jal read_lidar		#jump to read lidar in meters (distance between 2 cars) and return back
-    	move $s0, $v0		#save lidar value in $s0
-    	
-    	jal read_speedometer	#jump to read speedometer in km/h return back
-    	move $s1, $v0		#save speedometer value in $s1
-    	
-    	#print lidar value
-    	la $a0, str_lidar_result
-    	li $v0, 4
-    	syscall
-    	
-    	move $a0, $s0		#move lidar value to print
-    	li $v0, 1		#syscall to print integer
-    	syscall
-    	
-    	la $a0, break_line	#new line
-    	li $v0, 4
-    	syscall   
-    	
-    	#print speedometer value
-    	la $a0, str_speedometer_result
-    	li $v0, 4
-    	syscall
-    	
-    	move $a0, $s1		#move speedometer value to print
-    	li $v0, 1		#syscall to print integer
-    	syscall
-    	
-    	la $a0, break_line	#new line
-    	li $v0, 4
-    	syscall  
-    	
-    	#print camera resolution
-    	la $a0, str_camera_result
-    	li $v0, 4
-    	syscall
-    	
-    	lw $a0, camera_width	#print width
-    	li $v0, 1
-    	syscall
-    	
-    	la $a0, str_x		#print "x"
-    	li $v0, 4
-    	syscall
-    	
-    	lw $a0, camera_height	#print height
-    	li $v0, 1
-    	syscall
-    	
-    	#make space for next loop
-    	la $a0, break_line	#new line
-    	li $v0, 4
-    	syscall
-    	
-    	la $a0, break_line	#new line
-    	li $v0, 4
-    	syscall      
-    	
-    	addi $t0, $t0, 1    	#increment the counter (t0 = t0 + 1) 
-    	j loop              	#jump back to the start of the loop
- 
-end_loop: 
-    	li $v0, 10          
-    	syscall
-    	
-#function to read_lidar
-read_lidar:
-    	la $a0, str_prompt_lidar		#print prompt
-    	li $v0, 4
-    	syscall   
-    	
-    	#read integer input
-    	li $v0, 5
-    	syscall
-    	
-    	jr $ra			#return to caller with value in $v0
-	
-#function to read_speedometer
-read_speedometer:
-    	la $a0, str_prompt_speedometer		#print prompt
-    	li $v0, 4
-    	syscall   
-    	
-    	#read integer input
-    	li $v0, 5
-    	syscall
-    	
-    	jr $ra			#return to caller with value in $v0
-    	
-#function to read_camera
-read_camera:
-	la $a0, str_prompt_camera		#print display
-    	li $v0, 4
-    	syscall  
+    li $t0, 0               # Initialize counter to 0
 
-	jr $ra	
+loop: 
+    bge $t0, 10, end_loop   # If t0 >= 10, exit the loop
+
+    # Read and validate Lidar value
+    jal read_lidar          # Jump to read_lidar
+    blt $v0, 4, invalid_lidar
+    
+    mul $t1, $t0, 4         # Calculate byte offset for $t0
+    sw $v0, lidar_values($t1) # Store Lidar value
+
+    # Read and validate Speedometer value
+    jal read_speedometer    # Jump to read_speedometer
+    blt $v0, 0, invalid_speed
+
+    sw $v0, speedometer_values($t1) # Store Speedometer value
+
+    # Print Lidar value
+    la $a0, str_lidar_result
+    li $v0, 4
+    syscall
+    lw $a0, lidar_values($t1)  # Load and print lidar value
+    li $v0, 1
+    syscall
+
+    # Print Speedometer value
+    la $a0, str_speedometer_result
+    li $v0, 4
+    syscall
+    lw $a0, speedometer_values($t1)  # Load and print speedometer value
+    li $v0, 1
+    syscall
+
+    # Print Camera resolution
+    la $a0, str_camera_result
+    li $v0, 4
+    syscall
+
+    # Calculate and print TTC
+    move $a0, $t0           # Pass current index to $a0
+    jal calculate_TTC       # Call calculate_TTC function
+
+    la $a0, str_ttc_result
+    li $v0, 4
+    syscall
+
+    lw $a0, ttc_values($t1) # Load and print TTC value (fractional)
+    li $v0, 1
+    syscall
+
+    la $a0, break_line      # Print newline
+    li $v0, 4
+    syscall
+
+    addi $t0, $t0, 1        # Increment the counter
+    j loop                  # Jump back to the start of the loop
+
+invalid_lidar:
+    la $a0, str_invalid_lidar
+    li $v0, 4
+    syscall
+    j loop
+
+invalid_speed:
+    la $a0, str_invalid_speed
+    li $v0, 4
+    syscall
+    j loop
+
+end_loop: 
+    li $v0, 10              # Exit program
+    syscall
+
+# Function to read lidar
+read_lidar:
+    la $a0, str_prompt_lidar
+    li $v0, 4
+    syscall
+    li $v0, 5
+    syscall
+    jr $ra
+
+# Function to read speedometer
+read_speedometer:
+    la $a0, str_prompt_speedometer
+    li $v0, 4
+    syscall
+    li $v0, 5
+    syscall
+    jr $ra
+
+# Calculate Time-to-Collision (TTC) as a fraction
+calculate_TTC:
+    mul $t1, $a0, 4         # Calculate byte offset for index
+    lw $t2, lidar_values($t1)  # Load Lidar value (distance)
+    lw $t3, speedometer_values($t1) # Load Speedometer value (speed)
+
+    # Check for speed == 0 to avoid division by zero
+    beq $t3, $zero, no_collision
+
+    # Convert speed to m/s (scaled by 1000 for fractional calculations): speed (m/s) = speed (km/h) * 1000 / 3600
+    li $t4, 3600
+    mul $t3, $t3, 1000       # Scale speed by 1000
+    div $t3, $t3, $t4        # Convert to m/s
+
+    # Calculate TTC: TTC = (Distance * 1000) / Speed
+    mul $t2, $t2, 1000       # Scale distance by 1000
+    div $t5, $t2, $t3        # Compute TTC (fractional, scaled)
+    mflo $t5                 # Move quotient (TTC value) to $t5
+
+    sw $t5, ttc_values($t1)  # Store TTC in ttc_values
+    jr $ra                   # Return to caller
+
+no_collision:
+    li $t5, -1               # Indicate no collision possible
+    sw $t5, ttc_values($t1)  # Store -1 in ttc_values
+    jr $ra
