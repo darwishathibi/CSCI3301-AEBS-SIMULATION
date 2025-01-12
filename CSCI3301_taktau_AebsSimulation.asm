@@ -18,7 +18,7 @@
     str_ttc_result:         .asciiz "Time-to-Collision in ms (TTC): "
     str_fcw_result:         .asciiz "Forward Collision Warning (FCW) threshold: "
     break_line:             .asciiz "\n"
-    str_warning_light:      .asciiz "WARNING: Confirm accident! Warning light ON.\n"
+    str_warning_light:      .asciiz "WARNING: Collision imminent! Warning light ON.\n"
     str_clear:              .asciiz "Clear: No immediate danger.\n"
     str_warning_status:     .asciiz "Warning light status (1=ON, 0=OFF): "
 
